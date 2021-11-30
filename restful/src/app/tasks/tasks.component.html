@@ -1,0 +1,63 @@
+<h2>Add a new task</h2>
+<form (submit)="createNewTask($event)">
+    <div>
+        <label for="Title">Title</label>
+        <input type="text" name="title" [(ngModel)]="newTask.title">
+    </div>
+    <div>
+        <label for="Description">Description</label>
+        <input type="text" name="title" [(ngModel)]="newTask.description">
+    </div>
+    <button type="submit">Create new task</button>
+</form>
+
+
+<h2>All tasks</h2>
+<div *ngFor = "let task of allTasks">
+    <div style="padding: 10px; margin-bottom: 10px;">
+        <div>
+            <p>Task title: {{task.title}}</p> 
+            <p>Description: {{task.description}}</p>
+            <p *ngIf="task.completed">Status: Completed</p>
+            <p *ngIf="!task.completed">Status: Pending</p>
+        </div>
+        <form (submit)="deleteTask($event)">
+            <input type="hidden" value="{{task.title}}" id="title">
+            <button type="submit">Remove task</button>
+        </form>
+
+        <form (submit)="findTask($event)">
+            <input type="hidden" value="{{task.title}}" id="title">
+            <button type="submit">Edit Task</button>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="task.title">
+    <form class="editinfo" (submit)="editTask($event)">
+        <h2>Edit {{task.title}} task</h2>
+        <div>
+            <label>Title:</label>
+            <input type="text" name="title" [(ngModel)]="updateTask.title" value="{{task.title}}">
+        </div>
+        <div>
+            <label>Description:</label>
+            <input type="text" name="description" [(ngModel)]="updateTask.description">
+        </div>
+        <div>
+            <label>Completed?</label>
+            <div>
+                <label for="Yes">Yes</label>
+                <input type="radio" name="completed" [(ngModel)]="updateTask.completed" id="editComp" value="true">
+                <label for="no">No</label>
+                <input type="radio" name="completed" [(ngModel)]="updateTask.completed" id="editComp" value="false">
+            </div>
+        </div>
+        <div>
+            <button type="submit">Submit edit</button>
+        </div>
+    </form>
+</div>
+
+
+
